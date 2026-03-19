@@ -54,10 +54,10 @@ jobs:
           repository: ojasonw/homelab-gitops
           token: ${{ secrets.GITOPS_PAT }}
 
-      - name: "Atualiza a tag da imagem no deployment"
+      - name: "Atualiza a tag da imagem no kustomization.yaml"
         run: |
           cd infra/artjason-site/base
-          sed -i "s|image: ojasonw/web-site:.*|image: ojasonw/web-site:${{ env.IMAGE_VERSION }}|" 02-deployment.yaml
+          sed -i "s/newTag: .*/newTag: ${{ env.IMAGE_VERSION }}/" kustomization.yaml
 
       - name: "Cria um Pull Request"
         uses: peter-evans/create-pull-request@v6
