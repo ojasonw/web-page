@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — JWL TECH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #0f0f18;
+            --bg-card: #12121e;
+            --text-primary: #e8e8ef;
+            --text-secondary: #7a7a8e;
+            --text-muted: #4a4a5e;
+            --accent: #00e5a0;
+            --accent-dim: rgba(0, 229, 160, 0.08);
+            --accent-glow: rgba(0, 229, 160, 0.15);
+            --border: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(0, 229, 160, 0.2);
+            --font-display: 'Outfit', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) var(--bg-primary);
+        }
+
+        body {
+            font-family: var(--font-display);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ═══ NAVBAR ═══ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.4s var(--ease-out);
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 15, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 0;
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 12px var(--accent-glow);
+            animation: pulse-dot 2.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; box-shadow: 0 0 12px var(--accent-glow); }
+            50% { opacity: 0.6; box-shadow: 0 0 4px var(--accent-glow); }
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 0.74rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            transition: color 0.3s ease;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s var(--ease-out);
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-links .nav-cta a {
+            color: var(--accent);
+            border: 1px solid rgba(0, 229, 160, 0.3);
+            padding: 6px 16px;
+        }
+
+        .nav-links .nav-cta a:hover { background: var(--accent-dim); }
+        .nav-links .nav-cta a::after { display: none; }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .menu-toggle span {
+            width: 22px;
+            height: 1.5px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        /* ═══ 404 CONTENT ═══ */
+        .error-page {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 160px 24px 80px;
+            position: relative;
+        }
+
+        .error-grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 10%, transparent 70%);
+        }
+
+        .error-content {
+            position: relative;
+            z-index: 1;
+            max-width: 480px;
+        }
+
+        .error-code {
+            font-family: var(--font-mono);
+            font-size: clamp(6rem, 15vw, 10rem);
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            letter-spacing: -0.05em;
+            opacity: 0.15;
+            margin-bottom: -20px;
+            animation: fadeUp 0.8s var(--ease-out) 0.1s forwards;
+            opacity: 0;
+        }
+
+        .error-title {
+            font-size: clamp(1.4rem, 3vw, 1.8rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: fadeUp 0.8s var(--ease-out) 0.3s forwards;
+        }
+
+        .error-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            font-weight: 300;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeUp 0.8s var(--ease-out) 0.5s forwards;
+        }
+
+        .error-terminal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            text-align: left;
+            padding: 18px 20px;
+            margin-bottom: 36px;
+            line-height: 1.9;
+            color: var(--text-secondary);
+            opacity: 0;
+            animation: fadeUp 0.8s var(--ease-out) 0.7s forwards;
+        }
+
+        .error-terminal .prompt { color: var(--accent); }
+        .error-terminal .cmd { color: var(--text-primary); }
+        .error-terminal .output { color: var(--text-muted); padding-left: 8px; }
+        .error-terminal .error-line { color: #ff5f57; }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 14px;
+            background: var(--accent);
+            vertical-align: text-bottom;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .error-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeUp 0.8s var(--ease-out) 0.9s forwards;
+        }
+
+        .btn {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            letter-spacing: 0.04em;
+            padding: 14px 32px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s var(--ease-out);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-primary);
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 30px var(--accent-glow), 0 4px 20px rgba(0,0,0,0.3);
+            transform: translateY(-1px);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-ghost:hover {
+            color: var(--accent);
+            border-color: var(--border-hover);
+            background: var(--accent-dim);
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* fix: error-code needs final state with low opacity */
+        .error-code {
+            animation: fadeUpGhost 0.8s var(--ease-out) 0.1s forwards;
+        }
+
+        @keyframes fadeUpGhost {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 0.15; transform: translateY(0); }
+        }
+
+        /* ═══ FOOTER ═══ */
+        .footer {
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-text {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .footer-bottom-links a {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover { color: var(--accent); }
+
+        /* ═══ RESPONSIVE ═══ */
+        @media (max-width: 1100px) {
+            .nav-links { gap: 20px; }
+        }
+
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: flex; }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 15, 0.97);
+                backdrop-filter: blur(20px);
+                padding: 24px;
+                gap: 20px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links .nav-cta { margin-top: 8px; }
+
+            .error-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══ NAVBAR ═══ -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-dot"></span>
+                JWL TECH
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#sobre">Sobre</a></li>
+                <li><a href="servicos.html">Servi&ccedil;os</a></li>
+                <li><a href="projetos.html">Projetos</a></li>
+                <li><a href="stack.html">Stack</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li class="nav-cta"><a href="index.html#contato">Contato</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ═══ 404 ═══ -->
+    <main class="error-page">
+        <div class="error-grid-bg"></div>
+        <div class="error-content">
+            <div class="error-code">404</div>
+            <h1 class="error-title">P&aacute;gina n&atilde;o encontrada</h1>
+            <p class="error-desc">O recurso que voc&ecirc; procura n&atilde;o existe ou ainda est&aacute; em constru&ccedil;&atilde;o.</p>
+            <div class="error-terminal">
+                <div><span class="prompt">jwl@ops</span> <span class="cmd">~ $ curl -I /blog</span></div>
+                <div class="error-line">&ensp;&#x25b8; HTTP/1.1 404 Not Found</div>
+                <div class="output">&ensp;&#x25b8; Server: nginx</div>
+                <div class="output">&ensp;&#x25b8; X-Powered-By: JWL TECH</div>
+                <div>&nbsp;</div>
+                <div><span class="prompt">jwl@ops</span> <span class="cmd">~ $ </span><span class="terminal-cursor"></span></div>
+            </div>
+            <div class="error-actions">
+                <a href="index.html" class="btn btn-primary">
+                    Voltar ao in&iacute;cio
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="index.html#contato" class="btn btn-ghost">Fale conosco</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="footer-text">&copy; 2026 JWL TECH. Todos os direitos reservados.</p>
+                <ul class="footer-bottom-links">
+                    <li><a href="index.html">In&iacute;cio</a></li>
+                    <li><a href="servicos.html">Servi&ccedil;os</a></li>
+                    <li><a href="index.html#contato">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ═══ JAVASCRIPT ═══ -->
+    <script>
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 60);
+        });
+
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => navLinks.classList.remove('active'));
+        });
+    </script>
+</body>
+</html>
