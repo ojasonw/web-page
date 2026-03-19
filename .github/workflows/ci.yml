@@ -63,12 +63,12 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITOPS_PAT }}
-          commit-message: "chore: update artjason-site image to ${{ env.IMAGE_VERSION }}"
-          title: "CI: Atualiza artjason-site para ${{ env.IMAGE_VERSION }}"
+          commit-message: "chore: update web-site image to ${{ env.IMAGE_VERSION }}"
+          title: "CI: Atualiza web-site para ${{ env.IMAGE_VERSION }}"
           body: |
             Atualização automática da imagem pela GitHub Action.
 
             **Image:** `ojasonw/web-site:${{ env.IMAGE_VERSION }}`
-          branch: "update-artjason-site-${{ env.IMAGE_VERSION }}"
+          branch: "update-web-site-${{ env.IMAGE_VERSION }}"
           base: "main"
           delete-branch: true
