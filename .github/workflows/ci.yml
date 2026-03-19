@@ -56,7 +56,7 @@ jobs:
 
       - name: "Atualiza a tag da imagem no kustomization.yaml"
         run: |
-          cd infra/artjason-site/base
+          cd infra/web-page/base
           sed -i "s/newTag: .*/newTag: ${{ env.IMAGE_VERSION }}/" kustomization.yaml
 
       - name: "Cria um Pull Request"
